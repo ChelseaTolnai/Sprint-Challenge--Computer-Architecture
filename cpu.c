@@ -101,6 +101,8 @@ void pc(struct cpu *cpu, unsigned int op, unsigned char regA)
         cpu->pc += 2;
       }
       break;
+    case JNE:
+      break;
     default:
       fprintf(stderr, "Error - PC Instruction Unknown {%d}\n", op);
       exit(1);
@@ -127,6 +129,8 @@ void alu(struct cpu *cpu, unsigned int op, unsigned char regA, unsigned char reg
       cpu->reg[regA] = cpu->reg[regA] / cpu->reg[regB];
       break;
     case CMP:
+    // setting flags directly without comparision operator because two numbers can ONLY
+    // be <, >, OR =. Never both. Therefore only one flag will set to 1 and all others 0.
       if (cpu->reg[regA] < cpu->reg[regB]) {
         cpu->fl = LTF;
       } else if (cpu->reg[regA] > cpu->reg[regB]) {

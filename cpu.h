@@ -36,6 +36,7 @@ struct cpu {
 #define RET  0b00010001
 #define JMP  0b01010100
 #define JEQ  0b01010101
+#define JNE  0b01010110
 
 #define ALU  0b0010
 #define ADD  0b10100000
