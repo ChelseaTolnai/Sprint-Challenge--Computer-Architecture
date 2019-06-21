@@ -57,6 +57,8 @@ struct cpu {
 #define SHL  0b10101100
 #define SHR  0b10101101
 
+#define ADDI 0b10101110
+
 // Flags
 #define LTF  0b00000100 // less than flag
 #define GTF  0b00000010 // greater than flag

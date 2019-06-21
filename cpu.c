@@ -122,19 +122,19 @@ void alu(struct cpu *cpu, unsigned int op, unsigned char regA, unsigned char reg
 {
   switch (op) {
     case ADD:
-      cpu->reg[regA] = cpu->reg[regA] + cpu->reg[regB];
+      cpu->reg[regA] += cpu->reg[regB];
       break;
     case SUB:
-      cpu->reg[regA] = cpu->reg[regA] - cpu->reg[regB];
+      cpu->reg[regA] -= cpu->reg[regB];
       break;
     case MUL:
-      cpu->reg[regA] = cpu->reg[regA] * cpu->reg[regB];
+      cpu->reg[regA] *= cpu->reg[regB];
       break;
     case DIV:
-      cpu->reg[regA] = cpu->reg[regA] / cpu->reg[regB];
+      cpu->reg[regA] /= cpu->reg[regB];
       break;
     case MOD:
-      cpu->reg[regA] = cpu->reg[regA] % cpu->reg[regB];
+      cpu->reg[regA] %= cpu->reg[regB];
       break;
     case INC:
       cpu->reg[regA]++;
@@ -154,22 +154,25 @@ void alu(struct cpu *cpu, unsigned int op, unsigned char regA, unsigned char reg
       }
       break;
     case AND:
-      cpu->reg[regA] = cpu->reg[regA] & cpu->reg[regB];
+      cpu->reg[regA] &= cpu->reg[regB];
       break;
     case NOT:
       cpu->reg[regA] = ~(cpu->reg[regA]);
       break;
     case OR:
-      cpu->reg[regA] = cpu->reg[regA] | cpu->reg[regB];
+      cpu->reg[regA] |= cpu->reg[regB];
       break;
     case XOR:
-      cpu->reg[regA] = cpu->reg[regA] ^ cpu->reg[regB];
+      cpu->reg[regA] ^= cpu->reg[regB];
       break;
     case SHL:
-      cpu->reg[regA] = cpu->reg[regA] << cpu->reg[regB];
+      cpu->reg[regA] <<= cpu->reg[regB];
       break;
     case SHR:
-      cpu->reg[regA] = cpu->reg[regA] >> cpu->reg[regB];
+      cpu->reg[regA] >>= cpu->reg[regB];
+      break;
+    case ADDI:
+      cpu->reg[regA] += regB;
       break;
     default:
       fprintf(stderr, "Error - ALU Instruction Unknown {%d}\n", op);
