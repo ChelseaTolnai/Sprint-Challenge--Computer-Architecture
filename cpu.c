@@ -133,6 +133,15 @@ void alu(struct cpu *cpu, unsigned int op, unsigned char regA, unsigned char reg
     case DIV:
       cpu->reg[regA] = cpu->reg[regA] / cpu->reg[regB];
       break;
+    case MOD:
+      cpu->reg[regA] = cpu->reg[regA] % cpu->reg[regB];
+      break;
+    case INC:
+      cpu->reg[regA]++;
+      break;
+    case DEC:
+      cpu->reg[regA]--;
+      break;
     case CMP:
     // setting flags directly without comparision operator because two numbers can ONLY
     // be <, >, OR =. Never both. Therefore only one flag will set to 1 and all others 0.
@@ -143,6 +152,24 @@ void alu(struct cpu *cpu, unsigned int op, unsigned char regA, unsigned char reg
       } else {
         cpu->fl = ETF;
       }
+      break;
+    case AND:
+      cpu->reg[regA] = cpu->reg[regA] & cpu->reg[regB];
+      break;
+    case NOT:
+      cpu->reg[regA] = ~(cpu->reg[regA]);
+      break;
+    case OR:
+      cpu->reg[regA] = cpu->reg[regA] | cpu->reg[regB];
+      break;
+    case XOR:
+      cpu->reg[regA] = cpu->reg[regA] ^ cpu->reg[regB];
+      break;
+    case SHL:
+      cpu->reg[regA] = cpu->reg[regA] << cpu->reg[regB];
+      break;
+    case SHR:
+      cpu->reg[regA] = cpu->reg[regA] >> cpu->reg[regB];
       break;
     default:
       fprintf(stderr, "Error - ALU Instruction Unknown {%d}\n", op);
@@ -187,7 +214,7 @@ void cpu_run(struct cpu *cpu)
         pc(cpu, IR, operandA, operands);
         break;
       case ALU:
-        if (IR == DIV && operandB == 0) {
+        if ((IR == DIV || IR == MOD ) && operandB == 0) {
           fprintf(stderr, "Error - Cannot divide by 0\n");
           running = 0;
           break;
